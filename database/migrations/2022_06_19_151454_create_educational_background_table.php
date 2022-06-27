@@ -17,14 +17,13 @@ return new class extends Migration
             $table->id();
             $table->integer('nip');
             $table->unsignedBigInteger('user');
-            $table->enum('degree', config('data.degree'));
-            $table->enum('college', config('data.college'));
-            $table->enum('stage', config('data.stage'));
+            $table->unsignedBigInteger('major');
             $table->timestamp('start')->nullable();
             $table->timestamp('end')->nullable();
             $table->timestamps();
 
             $table->foreign('user')->references('id')->on('users');
+            $table->foreign('major')->references('id')->on('major');
         });
     }
 

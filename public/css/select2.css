@@ -1,0 +1,5 @@
+.select2-container .select2-selection--single {
+    padding: 4px;
+    height: auto;
+    border: 1px solid #ced4da;
+}

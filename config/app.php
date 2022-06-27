@@ -17,6 +17,11 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'logo_apple_touch' => env('APP_LOGO_APPLE_TOUCH', 'icons/apple-touch-icon.png?v=00aYpBgAp5'),
+    'logo_32' => env('APP_LOGO_32', 'icons/favicon-32x32.png?v=00aYpBgAp5'),
+    'logo_16' => env('APP_LOGO_16', 'icons/favicon-16x16.png?v=00aYpBgAp5'),
+    'logo_shortcut' => env('APP_LOGO_SHORTCUT', 'icons/favicon.ico?v=00aYpBgAp5'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

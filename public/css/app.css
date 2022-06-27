@@ -1140,6 +1140,9 @@ select {
 .inline {
   display: inline;
 }
+.inline-block {
+  display: inline-block;
+}
 .flex {
   display: flex;
 }
@@ -1310,6 +1313,9 @@ select {
 }
 .justify-end {
   justify-content: flex-end;
+}
+.justify-start {
+    justify-content: flex-start;
 }
 .justify-center {
   justify-content: center;
@@ -2073,6 +2079,14 @@ select {
     display: none;
   }
 
+  .sm\:inline {
+    display: inline;
+  }
+
+  .sm\:inline-block {
+    display: inline-block;
+  }
+
   .sm\:h-10 {
     height: 2.5rem;
   }
@@ -2140,6 +2154,10 @@ select {
 
   .sm\:justify-start {
     justify-content: flex-start;
+  }
+
+  .sm\:justify-end {
+    justify-content: flex-end;
   }
 
   .sm\:justify-center {
@@ -2259,3 +2277,19 @@ select {
   }
 }
 
+/* start customize */
+
+a {
+    text-decoration: none !important;
+}
+
+.bg-sky {
+    --tw-bg-opacity: 1;
+    background-color: rgb(207,226,255,var(--tw-bg-opacity));
+}
+
+.hover\:shadow:hover {
+    --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}

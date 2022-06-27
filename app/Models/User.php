@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -58,4 +60,48 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public static function dt($search,$start,$limit,$order,$dir){
+        $data = User::select("users.id","users.name");
+        $data = $search=="" ? $data : $data->where("users.name","LIKE","%".$search."%");
+        return $data
+            ->where("users.role","Lecturer")
+            ->limit($limit)
+            ->offset($start)
+            ->orderBy($order,$dir)
+            ->get();
+    }
+
+    public static function dtTotal($search){
+        $total = User::select(DB::raw("count(users.id) as count"))
+            ->where("users.role","Lecturer")
+            ->first()
+            ->count;
+        $filtered = $total;
+        if($search!=""){
+            $filtered = User::select(DB::raw("count(users.id) as count"))
+                ->where("users.role","Lecturer")
+                ->where("users.name","LIKE","%".$search."%")
+                ->first()
+                ->count;
+        }
+        return (object)[
+            "total" => $total,
+            "filtered" => $filtered,
+        ];
+    }
+
+    public static function Store($data){
+        $User = new User();
+
+        $User->name = $data->name;
+        $User->email = $data->email;
+        $User->gender = $data->gender;
+        $User->birth_place = $data->birth_place;
+        $User->birth_date = $data->birth_date;
+        $User->role = "Lecturer";
+        $User->password = Hash::make('123');
+
+        return $User->save();
+    }
 }

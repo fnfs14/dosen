@@ -3,7 +3,21 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="app-url" content="{{ config('app.url') }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        @if (isset($bearerToken))
+            @php
+                $bearerToken = StrToArray($bearerToken);
+            @endphp
+            @if (is_array($bearerToken))
+                @foreach ($bearerToken as $k => $v)
+                    <meta name="{{ $k }}" content="{{ $v }}">
+                @endforeach
+            @else
+                <meta name="bearer-token" content="{{ $bearerToken }}">
+            @endif
+        @endif
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -12,11 +26,18 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        {!! LoadAssets([
+            "bs-css",
+        ]) !!}
+
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset(config('app.logo_apple_touch')) }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset(config('app.logo_32')) }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset(config('app.logo_16')) }}">
+        <link rel="shortcut icon" href="{{ asset(config('app.logo_shortcut')) }}">
 
         @livewireStyles
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        @stack('styles')
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -41,7 +62,13 @@
 
         @stack('modals')
 
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>\
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        {!! LoadAssets([
+            "jq",
+            "bs-js",
+        ]) !!}
         @livewireScripts
+        @stack('scripts')
     </body>
 </html>

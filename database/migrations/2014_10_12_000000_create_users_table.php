@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->enum('role', config('data.role'));
             $table->enum('gender', config('data.gender'))->nullable();
+            $table->string('birth_place')->nullable();
+            $table->dateTime('birth_date')->nullable();
             $table->timestamps();
         });
     }
