@@ -9,6 +9,9 @@ use App\Http\Controllers\ApiMajorController;
 use App\Http\Controllers\ApiRequirementController;
 use App\Http\Controllers\ApiPositionController;
 use App\Http\Controllers\ApiRankController;
+use App\Http\Controllers\ApiLevelController;
+
+use App\Http\Controllers\ApiPromotionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +24,7 @@ use App\Http\Controllers\ApiRankController;
 |
 */
 
-Route::middleware([ 'auth:sanctum' ])->group(function () {
+Route::middleware([ 'auth:sanctum', ])->group(function () {
 
     Route::group([ "prefix"=>"user" ],function(){
         Route::get('dt', [ApiUserController::class,'dt'])->middleware(['ability:user-dt']);
@@ -66,8 +69,25 @@ Route::middleware([ 'auth:sanctum' ])->group(function () {
     Route::group([ "prefix"=>"rank" ],function(){
         Route::get('dt', [ApiRankController::class,'dt'])->middleware(['ability:rank-dt']);
         Route::post('store', [ApiRankController::class,'store'])->middleware(['ability:rank-store']);
+        Route::get('select2', [ApiRankController::class,'select2'])->middleware(['ability:rank-select2']);
         Route::put('update', [ApiRankController::class,'update'])->middleware(['ability:rank-update']);
         Route::delete('destroy', [ApiRankController::class,'destroy'])->middleware(['ability:rank-destroy']);
+    });
+
+    Route::group([ "prefix"=>"level" ],function(){
+        Route::get('dt', [ApiLevelController::class,'dt'])->middleware(['ability:level-dt']);
+        Route::post('store', [ApiLevelController::class,'store'])->middleware(['ability:level-store']);
+        Route::put('update', [ApiLevelController::class,'update'])->middleware(['ability:level-update']);
+        Route::delete('destroy', [ApiLevelController::class,'destroy'])->middleware(['ability:level-destroy']);
+    });
+
+    Route::group([ "prefix"=>"promote" ],function(){
+        Route::get('dt', [ApiPromotionController::class,'dt'])->middleware(['ability:promote-dt']);
+        Route::post('store', [ApiPromotionController::class,'store'])->middleware(['ability:promote-store']);
+        Route::put('update', [ApiPromotionController::class,'update'])->middleware(['ability:promote-update']);
+        Route::put('process', [ApiPromotionController::class,'process'])->middleware(['ability:promote-process']);
+        Route::put('deny', [ApiPromotionController::class,'deny'])->middleware(['ability:promote-deny']);
+        Route::put('approve', [ApiPromotionController::class,'approve'])->middleware(['ability:promote-approve']);
     });
 
 });

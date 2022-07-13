@@ -68,6 +68,19 @@ class Rank extends Model
         return $Rank->update();
     }
 
+    public static function select2($search=null){
+        $data = Rank::select("rank.id","rank.name as text");
+
+        if($search!=null){
+            $data->where("rank.name","like","%$search%");
+        }
+
+        return $data
+            ->limit(5)
+            ->offset(0)
+            ->get();
+    }
+
     public static function Destroy($data){
         $Rank = Rank::findOrFail($data['id']);
 

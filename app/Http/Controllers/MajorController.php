@@ -7,13 +7,8 @@ use App\Models\Major;
 
 class MajorController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $r){
+        AuthRevoke();
         $bearerToken = [
             "bearer-dt" => AuthCreateToken("major-index-dt",["major-dt"]),
             "bearer-destroy" => AuthCreateToken("major-index-destroy",["major-destroy"]),
@@ -22,6 +17,7 @@ class MajorController extends Controller
     }
 
     public function create(Request $r){
+        AuthRevoke();
         $bearerToken = [
             "bearer-save" => AuthCreateToken("major-create-save",["major-store"]),
             "bearer-college" => AuthCreateToken("major-create-college",["college-select2"]),
@@ -31,6 +27,7 @@ class MajorController extends Controller
     }
 
     public function edit(Request $r,$id){
+        AuthRevoke();
         $data = Major::findOrFail($id);
         $bearerToken = [
             "bearer-save" => AuthCreateToken("major-create-save",["major-update"]),

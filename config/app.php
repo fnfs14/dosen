@@ -21,6 +21,7 @@ return [
     'logo_32' => env('APP_LOGO_32', 'icons/favicon-32x32.png?v=00aYpBgAp5'),
     'logo_16' => env('APP_LOGO_16', 'icons/favicon-16x16.png?v=00aYpBgAp5'),
     'logo_shortcut' => env('APP_LOGO_SHORTCUT', 'icons/favicon.ico?v=00aYpBgAp5'),
+    'logo_wide' => env('APP_LOGO_WIDE', 'icons/favicon-32x32.png?v=00aYpBgAp5'),
 
     /*
     |--------------------------------------------------------------------------

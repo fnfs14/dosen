@@ -17,14 +17,14 @@
                                     <div class="col-md-4 mt-3">
                                         <div class="form-group">
                                             <label for="name">Nama Lengkap</label>
-                                            <input type="text" class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}" id="name" name="name" value="{{ old('name',@$data->name) }}" placeholder="Full Name" required>
+                                            <input type="text" class="form-control focus:border-emerald-300-important focus:ring focus:ring-emerald-100 {{ $errors->has('name') ? 'border-red-700-important' : '' }}" id="name" name="name" value="{{ old('name',@$data->name) }}" placeholder="Full Name" required>
                                             {!! $errors->first('name', '<label class="help-block error-validation">:message</label>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-4 mt-3">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="email" class="form-control {{ $errors->has('email') ? 'form-control-danger' : '' }}" id="email" name="email" value="{{ old('email',@$data->email) }}" placeholder="Email" required>
+                                            <input type="email" class="form-control focus:border-emerald-300-important focus:ring focus:ring-emerald-100 {{ $errors->has('email') ? 'border-red-700-important' : '' }}" id="email" name="email" value="{{ old('email',@$data->email) }}" placeholder="Email" required>
                                             {!! $errors->first('email', '<label class="help-block error-validation">:message</label>') !!}
                                         </div>
                                     </div>
@@ -45,7 +45,7 @@
                                     <div class="col-md-4 mt-3">
                                         <div class="form-group">
                                             <label for="birth_place">Tempat Lahir</label>
-                                            <input type="text" class="form-control {{ $errors->has('birth_place') ? 'form-control-danger' : '' }}" id="birth_place" name="birth_place" value="{{ old('birth_place',@$data->birth_place) }}" placeholder="Tempat Lahir">
+                                            <input type="text" class="form-control focus:border-emerald-300-important focus:ring focus:ring-emerald-100 {{ $errors->has('birth_place') ? 'border-red-700-important' : '' }}" id="birth_place" name="birth_place" value="{{ old('birth_place',@$data->birth_place) }}" placeholder="Tempat Lahir">
                                             {!! $errors->first('birth_place', '<label class="help-block error-validation">:message</label>') !!}
                                         </div>
                                     </div>
@@ -53,7 +53,7 @@
                                         <div class="form-group">
                                             <label for="birth_date">Tanggal Lahir</label>
                                             <div class="input-group date">
-                                                <input type="text" class="form-control {{ $errors->has('birth_date') ? 'form-control-danger' : '' }}" id="birth_date" name="birth_date" value="{{ old('birth_date',@$data->birth_date) }}" placeholder="Tanggal Lahir" autocomplete="off">
+                                                <input type="text" class="form-control focus:border-emerald-300-important focus:ring focus:ring-emerald-100 {{ $errors->has('birth_date') ? 'border-red-700-important' : '' }}" id="birth_date" name="birth_date" value="{{ old('birth_date',@$data->birth_date) }}" placeholder="Tanggal Lahir" autocomplete="off">
                                                 <div class="input-group-addon">
                                                     <span class="glyphicon glyphicon-th"></span>
                                                 </div>

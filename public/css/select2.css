@@ -3,3 +3,8 @@
     height: auto;
     border: 1px solid #ced4da;
 }
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    --tw-bg-opacity: 1;
+    background-color: rgb(5 150 105 / var(--tw-bg-opacity)) !important;
+}

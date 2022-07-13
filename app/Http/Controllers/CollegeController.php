@@ -7,13 +7,8 @@ use App\Models\College;
 
 class CollegeController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $r){
+        AuthRevoke();
         $bearerToken = [
             "bearer-dt" => AuthCreateToken("college-index-dt",["college-dt"]),
             "bearer-destroy" => AuthCreateToken("college-index-destroy",["college-destroy"]),
@@ -22,11 +17,13 @@ class CollegeController extends Controller
     }
 
     public function create(Request $r){
+        AuthRevoke();
         $bearerToken = AuthCreateToken("college-create",["college-store"]);
         return view('master.college.form', compact("bearerToken"));
     }
 
     public function edit(Request $r,$id){
+        AuthRevoke();
         $data = College::findOrFail($id);
         $bearerToken = AuthCreateToken("college-edit",["college-update"]);
         return view('master.college.form', compact("bearerToken","data"));

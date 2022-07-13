@@ -9,6 +9,13 @@ $(document).ready(function () {
         table: table,
         buttonAddText: "Tambah Dosen",
         buttonAddUrl: `${url}lecturer/create`,
+        createdRow: (row, data, dataIndex)=>{
+            $(row)
+                .css("cursor","pointer")
+                .on("click",()=>{
+                    window.location.href = `${url}promote/u/${data.id}`
+                })
+        },
     })
 
     toastrSuccess('store')

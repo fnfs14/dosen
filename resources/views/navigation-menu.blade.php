@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ url('/') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        <img style="width:36px; height:36px;" src="{{ asset(config("app.logo_32")) }}" />
                     </a>
                 </div>
 
@@ -17,17 +17,6 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-
-                @if(auth()->user()->role=="Admin")
-                    @foreach (config("data.menu") as $k => $v)
-                        @if ($v->role!=auth()->user()->role)
-                            @continue
-                        @endif
-                        <x-jet-nav-link href="{{ route($v->route) }}" :active="request()->routeIs($v->prefix.'.*')">
-                            {{ $v->name }}
-                        </x-jet-nav-link>
-                    @endforeach
-                @endif
 
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
@@ -103,10 +92,19 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Pengaturan') }}
+                                {{ __('Menu') }}
                             </div>
 
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                            @foreach (config("data.menu") as $k => $v)
+                                @if ($v->role!=auth()->user()->role)
+                                    @continue
+                                @endif
+                                <x-jet-dropdown-link href="{{ route($v->route) }}" :active="request()->routeIs($v->prefix.'.*') || request()->routeIs($v->prefix)">
+                                    {{ $v->name }}
+                                </x-jet-dropdown-link>
+                            @endforeach
+
+                            <x-jet-dropdown-link class="hidden" href="{{ route('profile.show') }}">
                                 {{ __('Profil') }}
                             </x-jet-dropdown-link>
 
@@ -165,19 +163,16 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
+                @foreach (config("data.menu") as $k => $v)
+                    @if ($v->role!=auth()->user()->role)
+                        @continue
+                    @endif
+                    <x-jet-responsive-nav-link href="{{ route($v->route) }}" :active="request()->routeIs($v->prefix.'.*') || request()->routeIs($v->prefix)">
+                        {{ $v->name }}
+                    </x-jet-responsive-nav-link>
+                @endforeach
 
-                @if(auth()->user()->role=="Admin")
-                    @foreach (config("data.menu") as $k => $v)
-                        @if ($v->role!=auth()->user()->role)
-                            @continue
-                        @endif
-                        <x-jet-responsive-nav-link href="{{ route($v->route) }}" :active="request()->routeIs($v->prefix.'.*')">
-                            {{ $v->name }}
-                        </x-jet-responsive-nav-link>
-                    @endforeach
-                @endif
-
-                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                <x-jet-responsive-nav-link class="hidden" href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profil') }}
                 </x-jet-responsive-nav-link>
 

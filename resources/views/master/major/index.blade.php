@@ -7,7 +7,8 @@
                     <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden">
                         <div class="grid grid-cols-1 md:grid-cols-12 table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xs">
                             <h2 class="text-center">Daftar Program Studi</h2>
-                            <table class="table table-hover mt-3 mb-3 table-primary" id="list-major">
+                            <hr class="bg-gray-500"/>
+                            <table class="table table-hover mt-3 mb-3 table-success" id="list-major">
                                 <thead>
                                     <tr>
                                         <th width="5%" class="text-center">#</th>

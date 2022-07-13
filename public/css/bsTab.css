@@ -1,0 +1,4 @@
+.nav-link, .nav-link:focus, .nav-link:hover,.nav-link.active, .nav-link:focus-visible {
+    color: #08774c;
+    outline-color: #dee2e6 !important;
+}

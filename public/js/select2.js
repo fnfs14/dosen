@@ -1,7 +1,8 @@
-function setSelect2(p={}){
+function setSelect2Ajax(p={}){
     const select = p.select
     const url = p.url
     const bearerToken = p.bearerToken
+    const placeholder = p.placeholder ? p.placeholder : "Please Select"
     const processResults = p.processResults ? p.processResults : (item,i)=>{
         return {
             text: item.text,
@@ -56,13 +57,27 @@ function setSelect2(p={}){
         }
     }
 
-    select.select2({
-        placeholder: 'Please Select',
-        width: 'resolve',
-        allowClear: true,
-        dropdownParent: select.parent(),
-        ajax: ajax
+    setSelect2(select,{
+        ajax: ajax,
+        placeholder: placeholder,
     })
 
     $.ajax(ajax)
+}
+
+function setSelect2(select,p={}){
+    params = {
+        width: 'resolve',
+        allowClear: true,
+        dropdownParent: select.parent(),
+    }
+
+    if(p.ajax) params.ajax = p.ajax
+    if(p.placeholder) params.placeholder = p.placeholder
+
+    select.on("select2:open", (e)=>{
+        $(".select2-search__field").addClass("focus:border-emerald-300-important focus:ring focus:ring-emerald-100")
+    })
+
+    return select.select2(params)
 }

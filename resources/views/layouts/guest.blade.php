@@ -7,6 +7,11 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset(config('app.logo_apple_touch')) }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset(config('app.logo_32')) }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset(config('app.logo_16')) }}">
+        <link rel="shortcut icon" href="{{ asset(config('app.logo_shortcut')) }}">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 

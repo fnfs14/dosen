@@ -11,3 +11,15 @@ if (! function_exists('AuthTokenCan')) {
         return request()->user()->tokenCan($ability);
     }
 }
+
+if (! function_exists('AuthRevoke')) {
+    function AuthRevoke() {
+        return request()->user()->tokens()->delete();
+    }
+}
+
+if (! function_exists('AuthUser')) {
+    function AuthUser($key) {
+        return auth()->user()->{$key};
+    }
+}

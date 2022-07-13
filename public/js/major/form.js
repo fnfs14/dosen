@@ -7,16 +7,18 @@ $(document).ready(function () {
     const bearerCollege = $("meta[name='bearer-college']").attr("content")
     const bearerStage = $("meta[name='bearer-stage']").attr("content")
 
-    setSelect2({
+    setSelect2Ajax({
         select: form.find("#college"),
         url: `${url}api/college/select2`,
         bearerToken: bearerCollege,
+        placeholder: "Pilih Perguruan Tinggi",
     })
 
-    setSelect2({
+    setSelect2Ajax({
         select: form.find("#stage"),
         url: `${url}api/stage/select2`,
         bearerToken: bearerStage,
+        placeholder: "Pilih Jenjang",
         processResults: (item,i)=>{
             return {
                 text: item,

@@ -6,19 +6,17 @@ use Illuminate\Http\Request;
 
 class LecturerController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $r){
+        AuthRevoke();
+        if(auth()->user()->role!="Admin") return redirect("/master");
+
         $bearerToken = AuthCreateToken("lecturer-index",["user-dt"]);
-        return view('lecturer.index', compact("bearerToken"));
+        return view('master.lecturer.index', compact("bearerToken"));
     }
 
     public function create(Request $r){
+        AuthRevoke();
         $bearerToken = AuthCreateToken("lecturer-create",["user-store"]);
-        return view('lecturer.form', compact("bearerToken"));
+        return view('master.lecturer.form', compact("bearerToken"));
     }
 }

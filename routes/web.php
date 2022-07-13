@@ -5,13 +5,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UpdateMasterDataController;
 
 use App\Http\Controllers\LecturerController;
-
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\RankController;
+use App\Http\Controllers\LevelController;
+
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PromotionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,24 +26,38 @@ use App\Http\Controllers\RankController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::redirect('/user/profile', url('master'));
 
-Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified' ])->group(function () {
-    Route::redirect('/', url('lecturer'))->name('base');
-    Route::redirect('/index', url('lecturer'))->name('index');
-    Route::redirect('/home', url('lecturer'))->name('home');
-    Route::redirect('/dashboard', url('lecturer'))->name('dashboard');
+Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified', ])->group(function () {
 
-    Route::get('update-master-data', UpdateMasterDataController::class);
+    Route::middleware([ 'auth.admin', ])->group(function(){
+        Route::redirect('/', url('master'))->name('base');
+        Route::redirect('/index', url('master'))->name('index');
+        Route::redirect('/home', url('master'))->name('home');
+        Route::redirect('/dashboard', url('master'))->name('dashboard');
 
-    Route::resource('lecturer', LecturerController::class);
+        Route::get('update-master-data', UpdateMasterDataController::class);
 
-    Route::group(['prefix'=>'master', 'as'=>'master.'], function () {
-        Route::get('/', MasterController::class)->name('index');
+        Route::get('promote/u/{id}', [PromotionController::class,"index"])->name("promote.user");
+        Route::get('promote/s/{id}', [PromotionController::class,"show"])->name("promote.detail");
 
-        Route::resource('college', CollegeController::class);
-        Route::resource('major', MajorController::class);
-        Route::resource('requirement', RequirementController::class);
-        Route::resource('position', PositionController::class);
-        Route::resource('rank', RankController::class);
+        Route::group(['prefix'=>'master', 'as'=>'master.'], function () {
+            Route::get('/', MasterController::class)->name('index');
+
+            Route::resource('lecturer', LecturerController::class);
+            Route::resource('college', CollegeController::class);
+            Route::resource('major', MajorController::class);
+            Route::resource('requirement', RequirementController::class);
+            Route::resource('position', PositionController::class);
+            Route::resource('rank', RankController::class);
+            Route::resource('level', LevelController::class);
+        });
     });
+
+    Route::middleware([ 'auth.lecturer', ])->group(function(){
+        Route::get('profile', ProfileController::class)->name("profile");
+
+        Route::resource('promote', PromotionController::class);
+    });
+
 });

@@ -24,10 +24,10 @@ $(document).ready(function () {
                 render: function(data,type,row){
                     return `
                         <div class="btn-group">
-                            <a href="${url}master/college/${row.id}/edit" pk="${row.id}" class="btn btn-sm btn-info text-white" title="Edit ${row.name}">
+                            <a href="${url}master/college/${row.id}/edit" pk="${row.id}" class="btn btn-sm btn-info text-white" title="Ubah ${row.name}">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            <button type="button" pk="${row.id}" class="btn btn-sm btn-danger" title="Delete ${row.name}">
+                            <button type="button" pk="${row.id}" class="btn btn-sm btn-danger" title="Hapus ${row.name}">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </div>`

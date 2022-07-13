@@ -21,6 +21,27 @@ class UserSeeder extends Seeder
         $isExist = function($mail){ return User::where('email',$mail)->first(); };
         $setMail = function($name){ return substr(str_replace(" ","",strtolower($name)), 0, 10) . '@mail.com'; };
 
+        $user = [
+            "ABDURRAHMAN",
+            "MURLINAH",
+            "HARIS IRNAWAN",
+            "URO ABDUROHIM",
+            "HERNA GUNAWAN",
+            "YUS JAYUSMAN",
+            "LINDA APRIYANTI",
+            "DEDY APRIADI",
+            "SITI YULIYANTI",
+            "MIRA SYLVIA KASEGRINA SIREGAR",
+            "MEIDI FRANSISCA SIREGAR",
+            "DANI PRADANA KARTAPUTRA",
+            "AGUS SOEPRIADI",
+            "MINA ISMU RAHAYU",
+            "INDRA MAULANA YUSUP KUSUMAH",
+            "RACHMAT JAENAL ABIDIN",
+            "ERFIZAL FIKRI YUSMANSYAH",
+            "FAIQUNISA",
+        ];
+
         $name = "Admin";
         $mail = $setMail($name);
         if($isExist($mail)==null){
@@ -32,125 +53,16 @@ class UserSeeder extends Seeder
             ]);
         }
 
-        $name = "ABDURRAHMAN";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
-        }
-
-        $name = "MURLINAH";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
-        }
-
-        $name = "HARIS IRNAWAN";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
-        }
-
-        $name = "URO ABDUROHIM";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
-        }
-
-        $name = "HERNA GUNAWAN";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
-        }
-
-        $name = "YUS JAYUSMAN";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
-        }
-
-        $name = "LINDA APRIYANTI";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
-        }
-
-        $name = "DEDY APRIADI";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
-        }
-
-        $name = "SITI YULIYANTI";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
-        }
-
-        $name = "MIRA SYLVIA KASEGRINA SIREGAR";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
-        }
-
-        $name = "MEIDI FRANSISCA SIREGAR";
-        $mail = $setMail($name);
-        if($isExist($mail)==null){
-            User::insert([
-                'name' => $name,
-                'email' => $mail,
-                'password' => $pwd,
-                'role' => $role,
-            ]);
+        foreach($user as $k => $name){
+            $mail = $setMail($name);
+            if($isExist($mail)==null){
+                User::insert([
+                    'name' => $name,
+                    'email' => $mail,
+                    'password' => $pwd,
+                    'role' => $role,
+                ]);
+            }
         }
     }
 }

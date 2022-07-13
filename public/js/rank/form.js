@@ -6,10 +6,11 @@ $(document).ready(function () {
     const bearerSave = $(`meta[name='bearer-save']`).attr("content")
     const bearerPosition = $("meta[name='bearer-position']").attr("content")
 
-    setSelect2({
+    setSelect2Ajax({
         select: form.find("#position"),
         url: `${url}api/position/select2`,
         bearerToken: bearerPosition,
+        placeholder: "Pilih Jabatan",
     })
 
     form.on("submit", (e)=>{

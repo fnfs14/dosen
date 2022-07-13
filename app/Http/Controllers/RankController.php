@@ -7,13 +7,8 @@ use App\Models\Rank;
 
 class RankController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $r){
+        AuthRevoke();
         $bearerToken = [
             "bearer-dt" => AuthCreateToken("rank-index-dt",["rank-dt"]),
             "bearer-destroy" => AuthCreateToken("rank-index-destroy",["rank-destroy"]),
@@ -22,6 +17,7 @@ class RankController extends Controller
     }
 
     public function create(Request $r){
+        AuthRevoke();
         $bearerToken = [
             "bearer-save" => AuthCreateToken("rank-create-save",["rank-store"]),
             "bearer-position" => AuthCreateToken("rank-create-position",["position-select2"]),
@@ -30,6 +26,7 @@ class RankController extends Controller
     }
 
     public function edit(Request $r,$id){
+        AuthRevoke();
         $data = Rank::findOrFail($id);
         $bearerToken = [
             "bearer-save" => AuthCreateToken("rank-create-save",["rank-update"]),

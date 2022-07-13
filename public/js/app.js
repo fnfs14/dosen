@@ -22762,6 +22762,13 @@ let appSI = setInterval(()=>{
                 }
             }
         })
+
+        // color default photo profile
+        var obj = $(".object-cover")
+        var link = obj.attr("src")
+            link = link.replace("7F9CF5","059669")
+            link = link.replace("EBF4FF","d1e7dd")
+        obj.attr("src",link)
     })
 
     clearInterval(appSI)

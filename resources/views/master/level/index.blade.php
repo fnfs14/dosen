@@ -1,17 +1,21 @@
 <x-app-layout>
-    <x-slot name="bearerToken">{{$bearerToken}}</x-slot>
+    <x-slot name="bearerToken">{{ ArrToStr($bearerToken) }}</x-slot>
     <div class="sm:pt-8 mt-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 p-6 pt-1">
                     <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden">
                         <div class="grid grid-cols-1 md:grid-cols-12 table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xs">
-                            <h2 class="text-center">Daftar Dosen</h2>
-                            <table class="table table-hover mt-3 mb-3 table-primary" id="list-lecturer">
+                            <h2 class="text-center">Daftar Golongan</h2>
+                            <hr class="bg-gray-500"/>
+                            <table class="table table-hover mt-3 mb-3 table-success" id="list-level">
                                 <thead>
                                     <tr>
                                         <th width="5%" class="text-center">#</th>
-                                        <th>Nama</th>
+                                        <th>Golongan</th>
+                                        <th>A.K.</th>
+                                        <th>Pangkat</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -33,8 +37,9 @@
         {!! LoadAssets([
             "jq-dt-js",
             "toastr-js",
+            "swa",
         ]) !!}
 
-        <script src="{{ asset('js/lecturer/index.js') }}"></script>
+        <script src="{{ asset('js/level/index.js') }}"></script>
     @endpush
 </x-app-layout>

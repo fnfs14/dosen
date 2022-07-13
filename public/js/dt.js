@@ -12,7 +12,8 @@ function setDatatable(p={}){
         lengthMenu = p.lengthMenu ? p.lengthMenu : [5, 10, 15, 20,],
         drawCallback = p.drawCallback ? p.drawCallback : (s)=>{},
         buttonAddText = p.buttonAddText,
-        buttonAddUrl = p.buttonAddUrl
+        buttonAddUrl = p.buttonAddUrl,
+        order = p.order ? p.order : [[1, 'asc']]
 
     table.DataTable({
         processing: true,
@@ -31,7 +32,7 @@ function setDatatable(p={}){
                 <'col-sm-12 col-md-4 d-flex justify-center align-items-center'i>
                 <'col-sm-12 col-md-5 d-flex align-items-center justify-center sm:justify-end'p>
             >`,
-        order: [[1, 'asc']],
+        order: order,
         ajax:{
             url: url,
             dataType: "json",
@@ -45,13 +46,15 @@ function setDatatable(p={}){
         columns: columns,
         columnDefs: columnDefs,
         drawCallback: (s)=>{
-            $(s.nTable).find("tbody").addClass("table-light")
+            let table = $(s.nTable)
+            table.find("tbody").addClass("table-light")
+            table.closest(".dataTables_wrapper").find(".dataTables_filter input").attr("class","border-gray-300 focus:border-emerald-500-important focus:ring focus:ring-emerald-300-important focus:ring-opacity-50 rounded-md shadow-sm")
             drawCallback(s)
         },
         buttons: [
             {
                 text: `<i class="fa-solid fa-plus"></i> <span class="sm:inline hidden">${buttonAddText}</span>`,
-                attr: { class: 'btn btn-primary btn-sm' },
+                attr: { class: 'inline-flex items-center px-2 py-2 bg-emerald-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-emerald-700 active:bg-emerald-800 focus:outline-none focus:border-emerald-800 focus:ring focus:ring-emerald-100 disabled:opacity-25 transition' },
                 action: function ( e, dt, node, config ) {
                     window.location.href = buttonAddUrl
                 }

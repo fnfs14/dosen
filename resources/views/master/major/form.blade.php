@@ -17,7 +17,7 @@
                                     <div class="col-md-4 mt-3">
                                         <div class="form-group">
                                             <label for="name">Nama Program Studi</label>
-                                            <input type="text" class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}" id="name" value="{{ old('name',@$data->name) }}" placeholder="Full Name" required>
+                                            <input type="text" class="form-control focus:border-emerald-300-important focus:ring focus:ring-emerald-100 {{ $errors->has('name') ? 'border-red-700-important' : '' }}" id="name" value="{{ old('name',@$data->name) }}" placeholder="Nama Program Studi" required>
                                             {!! $errors->first('name', '<label class="help-block error-validation">:message</label>') !!}
                                         </div>
                                     </div>
@@ -40,14 +40,14 @@
                                     <div class="col-md-4 mt-3">
                                         <div class="form-group">
                                             <label for="front_degree">Gelar Depan</label>
-                                            <input type="text" class="form-control {{ $errors->has('front_degree') ? 'form-control-danger' : '' }}" id="front_degree" value="{{ old('front_degree',@$data->front_degree) }}" placeholder="Gelar Depan">
+                                            <input type="text" class="form-control focus:border-emerald-300-important focus:ring focus:ring-emerald-100 {{ $errors->has('front_degree') ? 'border-red-700-important' : '' }}" id="front_degree" value="{{ old('front_degree',@$data->front_degree) }}" placeholder="Gelar Depan">
                                             {!! $errors->first('front_degree', '<label class="help-block error-validation">:message</label>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-4 mt-3">
                                         <div class="form-group">
                                             <label for="back_degree">Gelar Belakang</label>
-                                            <input type="text" class="form-control {{ $errors->has('back_degree') ? 'form-control-danger' : '' }}" id="back_degree" value="{{ old('back_degree',@$data->back_degree) }}" placeholder="Gelar Belakang">
+                                            <input type="text" class="form-control focus:border-emerald-300-important focus:ring focus:ring-emerald-100 {{ $errors->has('back_degree') ? 'border-red-700-important' : '' }}" id="back_degree" value="{{ old('back_degree',@$data->back_degree) }}" placeholder="Gelar Belakang">
                                             {!! $errors->first('back_degree', '<label class="help-block error-validation">:message</label>') !!}
                                         </div>
                                     </div>

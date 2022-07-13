@@ -17,7 +17,7 @@
                                     <div class="col-md-4 mt-3">
                                         <div class="form-group">
                                             <label for="name">Nama Persyaratan</label>
-                                            <input type="text" class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}" id="name" name="name" value="{{ old('name',@$data->name) }}" placeholder="Full Name" required>
+                                            <input type="text" class="form-control focus:border-emerald-300-important focus:ring focus:ring-emerald-100 {{ $errors->has('name') ? 'border-red-700-important' : '' }}" id="name" name="name" value="{{ old('name',@$data->name) }}" placeholder="Nama Persyaratan" required>
                                             {!! $errors->first('name', '<label class="help-block error-validation">:message</label>') !!}
                                         </div>
                                     </div>

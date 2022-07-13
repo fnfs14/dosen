@@ -7,13 +7,8 @@ use App\Models\Position;
 
 class PositionController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $r){
+        AuthRevoke();
         $bearerToken = [
             "bearer-dt" => AuthCreateToken("position-index-dt",["position-dt"]),
             "bearer-destroy" => AuthCreateToken("position-index-destroy",["position-destroy"]),
@@ -22,11 +17,13 @@ class PositionController extends Controller
     }
 
     public function create(Request $r){
+        AuthRevoke();
         $bearerToken = AuthCreateToken("position-create",["position-store"]);
         return view('master.position.form', compact("bearerToken"));
     }
 
     public function edit(Request $r,$id){
+        AuthRevoke();
         $data = Position::findOrFail($id);
         $bearerToken = AuthCreateToken("position-edit",["position-update"]);
         return view('master.position.form', compact("bearerToken","data"));

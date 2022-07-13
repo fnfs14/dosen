@@ -3,7 +3,9 @@ $(document).ready(function () {
     const url = $("meta[name='app-url']").attr("content")
     const form = $("#form-data")
 
-    form.find("#gender").select2()
+    setSelect2(form.find("#gender"),{
+        placeholder: "Pilih Jenis Kelamin",
+    })
 
     form.find("#birth_date").datepicker({
         todayBtn: "linked",

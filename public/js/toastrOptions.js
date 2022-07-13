@@ -10,3 +10,17 @@ function toastrSuccess(item){
         window.localStorage.setItem(item, "")
     }
 }
+
+function toastrError(item){
+    if(window.localStorage.getItem(item)!=""){
+        toastr.error(window.localStorage.getItem(item), 'ERROR')
+        window.localStorage.setItem(item, "")
+    }
+}
+
+function toastrWarning(item){
+    if(window.localStorage.getItem(item)!=""){
+        toastr.warning(window.localStorage.getItem(item), 'WARNING')
+        window.localStorage.setItem(item, "")
+    }
+}
