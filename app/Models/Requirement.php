@@ -47,12 +47,11 @@ class Requirement extends Model
         return $Requirement->save();
     }
 
-    public static function select2($search=null){
+    public static function select2($search=null,$id=null){
         $data = Requirement::select("requirement.id","requirement.name as text");
 
-        if($search!=null){
-            $data->where("requirement.name","like","%$search%");
-        }
+        if($search!=null) $data->where("requirement.name","like","%$search%");
+        if($id!=null) $data->where("requirement.id",$id);
 
         return $data
             ->limit(5)

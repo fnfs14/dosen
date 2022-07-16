@@ -11,20 +11,20 @@
                         </div>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Biodata</button>
+                                <button class="nav-link active" id="biodata-tab" data-bs-toggle="tab" data-bs-target="#biodata" type="button" role="tab" aria-controls="biodata" aria-selected="true">Biodata</button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Riwayat Pendidikan</button>
+                            <li class="nav-item visually-hidden" role="presentation">
+                                <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" type="button" role="tab" aria-controls="education" aria-selected="false">Riwayat Pendidikan</button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Riwayat Mengajar</button>
+                            <li class="nav-item visually-hidden" role="presentation">
+                                <button class="nav-link" id="teaching-tab" data-bs-toggle="tab" data-bs-target="#teaching" type="button" role="tab" aria-controls="teaching" aria-selected="false">Riwayat Mengajar</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="tab-pane fade show active" id="biodata" role="tabpanel" aria-labelledby="biodata-tab">
                                 <div class="inline-grid md:grid-cols-2 gap-1 w-100">
                                     <div class="p-4">
-                                        <img src="{{ AuthUser("profile_photo_path") }}" class="w-100" />
+                                        <img src="{{ AuthUser("profile_photo_path") }}" class="w-100" alt="Lecturer Photo" />
                                     </div>
                                     <div class="p-4">
                                         <div class="row">
@@ -70,8 +70,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">.2.</div>
-                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">..3</div>
+                            <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">.2.</div>
+                            <div class="tab-pane fade" id="teaching" role="tabpanel" aria-labelledby="teaching-tab">..3</div>
                         </div>
                     </div>
                 </div>

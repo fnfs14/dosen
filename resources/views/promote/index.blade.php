@@ -8,6 +8,9 @@
                         <div class="grid grid-cols-1 md:grid-cols-12 table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xs">
                             <h2 class="text-center">Daftar Pengajuan Promosi</h2>
                             <hr class="bg-gray-500"/>
+                            @if ($user!=false)
+                                <h6 class="text-center">{{ $user->name }}</h6>
+                            @endif
                             <table class="table table-hover mt-3 mb-3 table-success" id="list-promote">
                                 <thead>
                                     <tr>

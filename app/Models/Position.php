@@ -47,12 +47,11 @@ class Position extends Model
         return $Position->save();
     }
 
-    public static function select2($search=null){
+    public static function select2($search=null,$id=null){
         $data = Position::select("position.id","position.name as text");
 
-        if($search!=null){
-            $data->where("position.name","like","%$search%");
-        }
+        if($search!=null)$data->where("position.name","like","%$search%");
+        if($id!=null)$data->where("position.id",$id);
 
         return $data
             ->limit(5)

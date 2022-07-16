@@ -22,6 +22,25 @@ class UserSeeder extends Seeder
         $setMail = function($name){ return substr(str_replace(" ","",strtolower($name)), 0, 10) . '@mail.com'; };
 
         $user = [
+            "Nur Widiyasono",
+            "Aradea",
+            "Eka Wahyu Hidayat",
+            "Rohmat Gunawan",
+            "R. Reza El Akbar",
+            "Husni Mubarok",
+            "Neng Ika Kurniati",
+            "Firmansyah Maulana SN",
+            "Siti Yuliyanti",
+            "Rahmi Nur Shofa",
+            "Rianto",
+            "Irani Hoeronis",
+            "Acep Irham Gufroni",
+            "Andi Nur Rachman",
+            "Heni Sulastri",
+            "Aldy Putra Aldya",
+            "Randi Rizal",
+            "Euis Nur Fitrani Dewi",
+
             "ABDURRAHMAN",
             "MURLINAH",
             "HARIS IRNAWAN",

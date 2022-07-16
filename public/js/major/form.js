@@ -12,6 +12,7 @@ $(document).ready(function () {
         url: `${url}api/college/select2`,
         bearerToken: bearerCollege,
         placeholder: "Pilih Perguruan Tinggi",
+        selected: form.find("#college").attr("pk"),
     })
 
     setSelect2Ajax({
@@ -19,6 +20,7 @@ $(document).ready(function () {
         url: `${url}api/stage/select2`,
         bearerToken: bearerStage,
         placeholder: "Pilih Jenjang",
+        selected: form.find("#stage").attr("pk"),
         processResults: (item,i)=>{
             return {
                 text: item,

@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ApiUserController;
+use App\Http\Controllers\ApiLecturerController;
 use App\Http\Controllers\ApiCollegeController;
 use App\Http\Controllers\ApiMajorController;
 use App\Http\Controllers\ApiRequirementController;
@@ -27,8 +27,9 @@ use App\Http\Controllers\ApiPromotionController;
 Route::middleware([ 'auth:sanctum', ])->group(function () {
 
     Route::group([ "prefix"=>"user" ],function(){
-        Route::get('dt', [ApiUserController::class,'dt'])->middleware(['ability:user-dt']);
-        Route::post('store', [ApiUserController::class,'store'])->middleware(['ability:user-store']);
+        Route::get('dt', [ApiLecturerController::class,'dt'])->middleware(['ability:user-dt']);
+        Route::post('store', [ApiLecturerController::class,'store'])->middleware(['ability:user-store']);
+        Route::put('update', [ApiLecturerController::class,'update'])->middleware(['ability:user-update']);
     });
 
     Route::group([ "prefix"=>"college" ],function(){

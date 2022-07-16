@@ -1,18 +1,13 @@
 $(document).ready(function () {
     const table = $('#list-promote')
     const bearerDt = $("meta[name='bearer-dt']").attr("content")
-    const bearerDestroy = $("meta[name='bearer-destroy']").attr("content")
-    const bearerProcess = $("meta[name='bearer-process']").attr("content")
     const url = $("meta[name='app-url']").attr("content")
-    const user = $("meta[name='promote-user']").attr("content")
-    const isAdmin = $("meta[name='is-admin']").attr("content")
+    const status = $("meta[name='promote-status']").attr("content")
 
     setDatatable({
-        url: `${url}api/promote/dt?user=${user}`,
+        url: `${url}api/promote/dt?status=${status}`,
         token: bearerDt,
         table: table,
-        buttonAddText: isAdmin ? "" : "Mengajukan Promosi",
-        buttonAddUrl: isAdmin ? "" : `${url}promote/create`,
         order: [[2,'desc']],
         columns: [
             { data: "no", className: "text-center", sortable: false, },
@@ -58,24 +53,11 @@ $(document).ready(function () {
                 className: "text-center",
                 orderable: false,
                 render: function(data,type,row){
-                    var btn = ""
-                    if(isAdmin=="1" && row.status=="Diajukan"){
-                        btn = `
-                            <a href="${url}promote/s/${row.id}" class="btn btn-sm btn-info text-white" title="Tampilkan Data">
-                                <i class="fa fa-eye"></i>
-                            </a>`
-                    }else if(isAdmin!="1" && (row.status=="Draf" || row.status=="Ditolak")){
-                        btn = `
-                            <button type="button" pk="${row.id}" class="btn btn-sm btn-primary status-process" title="Ajukan">
-                                Ajukan
-                            </button>
-                            <a href="${url}promote/${row.id}/edit" pk="${row.id}" class="btn btn-sm btn-info text-white" title="Ubah">
-                                <i class="fa fa-edit"></i>
-                            </a>`
-                    }
                     return `
                         <div class="btn-group">
-                            ${btn}
+                            <a href="${url}promote/s/${row.id}" class="btn btn-sm btn-info text-white" title="Tampilkan Data">
+                                <i class="fa fa-eye"></i>
+                            </a>
                         </div>`
                 },
             },
@@ -83,24 +65,6 @@ $(document).ready(function () {
         createdRow: function( row, data, dataIndex ) {
             $(row).attr("pk",data.id)
         },
-    })
-
-    setDelete({
-        table: "#list-promote",
-        url: `${url}api/promote/destroy`,
-        token: bearerDestroy,
-        module: "pengajuan promosi",
-        redirect: `${url}promote`,
-    })
-
-    setStatus({
-        table: "#list-promote",
-        url: `${url}api/promote/process`,
-        token: bearerProcess,
-        redirect: `${url}promote`,
-        target: `status-process`,
-        text: "Draf ini akan diajukan",
-        textSuccess: "Draf berhasil diajukan",
     })
 
     toastrSuccess('store')

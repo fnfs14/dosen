@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Promotion;
+use Illuminate\Validation\Rule;
 
-class ApiUserController extends Controller
+class ApiLecturerController extends Controller
 {
     public function dt(Request $r) {
-        $columns = [ "no", "name", ];
+        $columns = [ "no", "users.name", "users.id", ];
 
         $limit = $r->length;
         $start = $r->start;
@@ -27,6 +29,10 @@ class ApiUserController extends Controller
                     "no" => $no,
                     "name" => $v->name,
                     "id" => $v->id,
+                    "promote" => Promotion::select("id")
+                        ->where("user",$v->id)
+                        ->where("status","Diajukan")
+                        ->count(),
                 ];
                 $no++;
             }
@@ -56,6 +62,12 @@ class ApiUserController extends Controller
 
         if($isEdit==true){
             $columns["id"] = "required";
+            $columns["email"] = [
+                'required',
+                'max:255',
+                'email:filter',
+                Rule::unique('users')->where(fn ($query) => $query->where('id',"!=",$r->id)),
+            ];
             $messages["id.required"] = "Terjadi kesalahan";
         }
 
@@ -66,5 +78,11 @@ class ApiUserController extends Controller
         $this->validation($r);
 
         return response()->json(User::Store($r));
+    }
+
+    public function update(Request $r){
+        $this->validation($r,true);
+
+        return response()->json(User::Put($r->all()));
     }
 }

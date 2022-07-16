@@ -11,8 +11,9 @@ function setDatatable(p={}){
         ],
         lengthMenu = p.lengthMenu ? p.lengthMenu : [5, 10, 15, 20,],
         drawCallback = p.drawCallback ? p.drawCallback : (s)=>{},
-        buttonAddText = p.buttonAddText,
-        buttonAddUrl = p.buttonAddUrl,
+        buttonAddText = p.buttonAddText ? p.buttonAddText : "",
+        buttonAddUrl = p.buttonAddUrl ? p.buttonAddUrl : "",
+        buttonHide = buttonAddText=="" ? "visually-hidden" : "",
         order = p.order ? p.order : [[1, 'asc']]
 
     table.DataTable({
@@ -54,7 +55,7 @@ function setDatatable(p={}){
         buttons: [
             {
                 text: `<i class="fa-solid fa-plus"></i> <span class="sm:inline hidden">${buttonAddText}</span>`,
-                attr: { class: 'inline-flex items-center px-2 py-2 bg-emerald-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-emerald-700 active:bg-emerald-800 focus:outline-none focus:border-emerald-800 focus:ring focus:ring-emerald-100 disabled:opacity-25 transition' },
+                attr: { class: `inline-flex items-center px-2 py-2 bg-emerald-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-emerald-700 active:bg-emerald-800 focus:outline-none focus:border-emerald-800 focus:ring focus:ring-emerald-100 disabled:opacity-25 transition ${buttonHide}` },
                 action: function ( e, dt, node, config ) {
                     window.location.href = buttonAddUrl
                 }

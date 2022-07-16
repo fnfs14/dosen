@@ -47,12 +47,11 @@ class College extends Model
         return $College->save();
     }
 
-    public static function select2($search=null){
+    public static function select2($search=null,$id=null){
         $data = College::select("college.id","college.name as text");
 
-        if($search!=null){
-            $data->where("college.name","like","%$search%");
-        }
+        if($search!=null) $data->where("college.name","like","%$search%");
+        if($id!=null) $data->where("college.id",$id);
 
         return $data
             ->limit(5)

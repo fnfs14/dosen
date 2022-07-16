@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             MajorSeeder::class,
 
             PositionSeeder::class,
+
+            RequirementSeeder::class,
         ]);
     }
 }

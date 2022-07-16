@@ -68,12 +68,11 @@ class Rank extends Model
         return $Rank->update();
     }
 
-    public static function select2($search=null){
+    public static function select2($search=null,$id=null){
         $data = Rank::select("rank.id","rank.name as text");
 
-        if($search!=null){
-            $data->where("rank.name","like","%$search%");
-        }
+        if($search!=null) $data->where("rank.name","like","%$search%");
+        if($id!=null) $data->where("rank.id",$id);
 
         return $data
             ->limit(5)

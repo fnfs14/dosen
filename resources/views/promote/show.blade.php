@@ -57,8 +57,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col mt-4">
-                                        <button type="button" class="btn btn-success btn-md" pk="{{ $data->id }}">Setuju</button>
-                                        <button type="button" class="btn btn-danger btn-md" pk="{{ $data->id }}">Tolak</button>
+                                        <button type="button" class="btn btn-success btn-md {{ $data->status=="Diajukan" ? "" : "visually-hidden" }}" pk="{{ $data->id }}">Setuju</button>
+                                        <button type="button" class="btn btn-danger btn-md {{ $data->status=="Diajukan" ? "" : "visually-hidden" }}" pk="{{ $data->id }}">Tolak</button>
                                         <a href="{{ route('promote.user',$data->user->id) }}" class="btn btn-primary btn-md">Kembali</a>
                                     </div>
                                 </div>

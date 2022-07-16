@@ -8,7 +8,7 @@ use App\Models\Level;
 class ApiLevelController extends Controller
 {
     public function dt(Request $r) {
-        $columns = [ "no", "name", ];
+        $columns = [ "no", "level.name", "level.rate", "rank.name", ];
 
         $limit = $r->length;
         $start = $r->start;

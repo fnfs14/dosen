@@ -16,17 +16,18 @@ class PromotionController extends Controller
             "bearer-dt" => AuthCreateToken("promote-index-dt",["promote-dt"]),
             "bearer-destroy" => AuthCreateToken("promote-index-destroy",["promote-destroy"]),
             "bearer-process" => AuthCreateToken("promote-index-process",["promote-process"]),
-            "promote-user" => $u!=null && auth()->user()->role=="Admin" ? $u : auth()->user()->id,
-            "is-admin" => auth()->user()->role=="Admin" ? 1 : 0,
+            "promote-user" => $u!=null && AuthIsAdmin() ? $u : auth()->user()->id,
+            "is-admin" => AuthIsAdmin() ? 1 : 0,
         ];
-        return view('master.promote.index', compact("bearerToken"));
+        $user = $u!=null && AuthIsAdmin() ? User::select("name")->where("id",$u)->firstOrFail() : false;
+        return view('promote.index', compact("bearerToken", "user"));
     }
 
     public function create(Request $r){
         $url = "promote";
         $method = "warning";
 
-        $data = Promotion::GetLast();
+        $data = Promotion::GetLast(AuthUser("id"));
         if($data!=null && ($data->status!="Disetujui")){
             $message = "Ada pengajuan yang sedang berjalan";
             return view("errors.setNotification", compact("url","message","method"));
@@ -38,7 +39,7 @@ class PromotionController extends Controller
             "bearer-position" => AuthCreateToken("promote-create-position",["position-select2"]),
             "bearer-save" => AuthCreateToken("promote-create-save",["promote-store"]),
         ];
-        return view('master.promote.form', compact("bearerToken","requirements"));
+        return view('promote.form', compact("bearerToken","requirements"));
     }
 
     public function edit(Request $r,$id){
@@ -47,8 +48,8 @@ class PromotionController extends Controller
 
         $url = "promote";
         $method = "warning";
-        if($data->status=="Diproses"){
-            $message = "Pengajuan sedang diproses";
+        if($data->status=="Diajukan"){
+            $message = "Pengajuan sedang diajukan";
             return view("errors.setNotification", compact("url","message","method"));
         }else if($data->status=="Disetujui"){
             $message = "Pengajuan sudah selesai";
@@ -61,7 +62,7 @@ class PromotionController extends Controller
             "bearer-position" => AuthCreateToken("promote-create-position",["position-select2"]),
             "bearer-save" => AuthCreateToken("promote-create-save",["promote-update"]),
         ];
-        return view('master.promote.form', compact("bearerToken","data","requirements"));
+        return view('promote.form', compact("bearerToken","data","requirements"));
     }
 
     public function show(Request $r,$id){
@@ -74,9 +75,23 @@ class PromotionController extends Controller
         $bearerToken = [
             "bearer-deny" => AuthCreateToken("promote-show-deny",["promote-deny"]),
             "bearer-approve" => AuthCreateToken("promote-show-approve",["promote-approve"]),
-            "is-admin" => auth()->user()->role=="Admin" ? 1 : 0,
+            "is-admin" => AuthIsAdmin() ? 1 : 0,
             "promote-user" => $data->user->id,
         ];
-        return view('master.promote.show', compact("bearerToken","data","requirements"));
+        return view('promote.show', compact("bearerToken","data","requirements"));
     }
+
+    public function list($r,$status=""){
+        AuthRevoke();
+        $bearerToken = [
+            "bearer-dt" => AuthCreateToken("promote-list-dt",["promote-dt"]),
+            "promote-status" => $status,
+        ];
+        return view('promote.list', compact("bearerToken"));
+    }
+
+    public function draf(Request $r){ return $this->list($r,"Draf"); }
+    public function diajukan(Request $r){ return $this->list($r,"diajukan"); }
+    public function ditolak(Request $r){ return $this->list($r,"ditolak"); }
+    public function disetujui(Request $r){ return $this->list($r,"disetujui"); }
 }

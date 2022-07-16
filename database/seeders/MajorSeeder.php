@@ -25,43 +25,24 @@ class MajorSeeder extends Seeder
             return $major==null ? $college->id : null;
         };
 
-        $stage = "S1";
-        $name = "Teknik Informatika";
-        $college = $isExist("STMIK Bandung",$stage,$name);
-        if($college!=null){
-            Major::insert([
-                'college' => $college,
-                'stage' => $stage,
-                'name' => $name,
-                'front_degree' => "",
-                'back_degree' => "S.T",
-            ]);
-        }
+        $major = [
+            [ "Teknik Informatika", "S1", "STMIK Bandung", "", "S.T", ],
+            [ "Sistem Informasi", "S1", "STMIK Bandung", "", "S.Kom", ],
+        ];
 
-        $stage = "S2";
-        $name = "Ilmu Komputer";
-        $college = $isExist("STMIK Likmi",$stage,$name);
-        if($college!=null){
-            Major::insert([
-                'college' => $college,
-                'stage' => $stage,
-                'name' => $name,
-                'front_degree' => "",
-                'back_degree' => "M.Kom",
-            ]);
-        }
-
-        $stage = "S1";
-        $name = "Sistem Informasi";
-        $college = $isExist("STMIK Bandung",$stage,$name);
-        if($college!=null){
-            Major::insert([
-                'college' => $college,
-                'stage' => $stage,
-                'name' => $name,
-                'front_degree' => "",
-                'back_degree' => "S.Kom",
-            ]);
+        foreach($major as $k => $v){
+            $stage = $v[1];
+            $name = $v[0];
+            $college = $isExist($v[2],$stage,$name);
+            if($college!=null){
+                Major::insert([
+                    'college' => $college,
+                    'stage' => $stage,
+                    'name' => $name,
+                    'front_degree' => $v[3],
+                    'back_degree' => $v[4],
+                ]);
+            }
         }
     }
 }

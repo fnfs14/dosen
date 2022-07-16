@@ -9,7 +9,7 @@ use App\Models\Rank;
 class ApiPositionController extends Controller
 {
     public function dt(Request $r) {
-        $columns = [ "no", "name", ];
+        $columns = [ "no", "position.name", ];
 
         $limit = $r->length;
         $start = $r->start;
@@ -66,7 +66,7 @@ class ApiPositionController extends Controller
 
     public function select2(Request $r){
         return response()->json(
-            Position::select2($r->search)
+            Position::select2($r->search,$r->id)
         );
     }
 

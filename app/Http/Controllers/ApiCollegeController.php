@@ -9,7 +9,7 @@ use App\Models\Major;
 class ApiCollegeController extends Controller
 {
     public function dt(Request $r) {
-        $columns = [ "no", "name", ];
+        $columns = [ "no", "college.name", ];
 
         $limit = $r->length;
         $start = $r->start;
@@ -66,7 +66,7 @@ class ApiCollegeController extends Controller
 
     public function select2(Request $r){
         return response()->json(
-            College::select2($r->search)
+            College::select2($r->search,$r->id)
         );
     }
 

@@ -11,6 +11,7 @@ $(document).ready(function () {
         url: `${url}api/rank/select2`,
         bearerToken: bearerRank,
         placeholder: "Pilih Pangkat",
+        selected: form.find("#rank").attr("pk"),
     })
 
     form.on("submit", (e)=>{

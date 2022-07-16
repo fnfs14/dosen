@@ -16,6 +16,6 @@ class RoleAdminAuthentication
      */
     public function handle(Request $request, Closure $next)
     {
-        return auth()->user()->role=="Admin" ? $next($request) : redirect()->route("profile");
+        return AuthIsAdmin() ? $next($request) : redirect()->route("profile");
     }
 }

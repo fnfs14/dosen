@@ -9,7 +9,7 @@ use App\Models\Major;
 class ApiRequirementController extends Controller
 {
     public function dt(Request $r) {
-        $columns = [ "no", "name", ];
+        $columns = [ "no", "requirement.name", "requirement.id", ];
 
         $limit = $r->length;
         $start = $r->start;
@@ -66,7 +66,7 @@ class ApiRequirementController extends Controller
 
     public function select2(Request $r){
         return response()->json(
-            Requirement::select2($r->search)
+            Requirement::select2($r->search,$r->id)
         );
     }
 

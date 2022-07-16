@@ -8,7 +8,7 @@ use App\Models\Major;
 class ApiMajorController extends Controller
 {
     public function dt(Request $r) {
-        $columns = [ "no", "name", ];
+        $columns = [ "no", "major.name", "college.name", "major.stage", "major.front_degree", "major.back_degree", ];
 
         $limit = $r->length;
         $start = $r->start;

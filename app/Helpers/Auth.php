@@ -23,3 +23,9 @@ if (! function_exists('AuthUser')) {
         return auth()->user()->{$key};
     }
 }
+
+if (! function_exists('AuthIsAdmin')) {
+    function AuthIsAdmin() {
+        return auth()->user()->role=="Admin";
+    }
+}

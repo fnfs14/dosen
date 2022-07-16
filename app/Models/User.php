@@ -104,4 +104,26 @@ class User extends Authenticatable
 
         return $User->save();
     }
+
+    public static function Put($data){
+        $User = User::find($data['id']);
+
+        if(array_key_exists("name",$data)){
+            $User->name = $data['name'];
+        }
+
+        if(array_key_exists("gender",$data)){
+            $User->gender = $data['gender'];
+        }
+
+        if(array_key_exists("birth_place",$data)){
+            $User->birth_place = $data['birth_place'];
+        }
+
+        if(array_key_exists("birth_date",$data)){
+            $User->birth_date = $data['birth_date'];
+        }
+
+        return $User->update();
+    }
 }

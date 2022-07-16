@@ -11,7 +11,7 @@
                             <form action="" id="form-data">
                                 @csrf
                                 @if(@$data)
-                                    <input type="hidden" name="_method" value="put">
+                                    <input type="hidden" id="id" value="{{ $data->id }}">
                                 @endif
                                 <div class="row">
                                     <div class="col-md-4 mt-3">
@@ -31,7 +31,7 @@
                                     <div class="col-md-4 mt-3">
                                         <div class="form-group">
                                             <label for="gender">Jenis Kelamin</label>
-                                            <select id="gender" class="form-select" required>
+                                            <select id="gender" class="form-select" pk="{{ old('rank',@$data->gender) }}" required>
                                                 <option value="">Pilih Jenis Kelamin</option>
                                                 @foreach (@config("data.gender") as $gender)
                                                     <option>{{ $gender }}</option>
@@ -70,7 +70,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <button type="submit" class="btn btn-primary btn-md">Simpan</button>
-                                        <a href="{{ route('lecturer.index') }}" class="btn btn-danger btn-md">Batal</a>
+                                        <a href="{{ route('master.lecturer.index') }}" class="btn btn-danger btn-md">Batal</a>
                                     </div>
                                 </div>
                             </form>

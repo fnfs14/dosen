@@ -10,17 +10,21 @@ use Illuminate\Support\Facades\Storage;
 class ApiPromotionController extends Controller
 {
     public function dt(Request $r) {
-        $columns = [ "no", "created_at", "time", "file", "status", "id", ];
+        $columns = [ "no", "position.name", "promotion.created_at", "promotion.time", "promotion.file", "promotion.status", "id", ];
 
         $limit = $r->length;
         $start = $r->start;
         $order = $columns[$r->order['0']['column']];
         $dir = $r->order['0']['dir'];
-        $search = $r->search['value'];
-        $user = $r->user;
+        $search = (object)[
+            "value" => $r->search['value'],
+            "status" => $r->status,
+            "user" => $r->user=="null" ? null : $r->user,
+        ];
+        // dd($search);
 
-        $records = Promotion::dt($user,$search,$start,$limit,$order,$dir);
-        $total = Promotion::dtTotal($user,$search);
+        $records = Promotion::dt($search,$start,$limit,$order,$dir);
+        $total = Promotion::dtTotal($search);
         $data = [];
 
         if(!empty($records)) {

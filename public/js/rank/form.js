@@ -11,6 +11,7 @@ $(document).ready(function () {
         url: `${url}api/position/select2`,
         bearerToken: bearerPosition,
         placeholder: "Pilih Jabatan",
+        selected: form.find("#position").attr("pk"),
     })
 
     form.on("submit", (e)=>{

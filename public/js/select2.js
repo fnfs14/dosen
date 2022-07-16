@@ -3,6 +3,7 @@ function setSelect2Ajax(p={}){
     const url = p.url
     const bearerToken = p.bearerToken
     const placeholder = p.placeholder ? p.placeholder : "Please Select"
+    const selected = p.selected ? p.selected : undefined
     const processResults = p.processResults ? p.processResults : (item,i)=>{
         return {
             text: item.text,
@@ -29,22 +30,7 @@ function setSelect2Ajax(p={}){
                     })
                 }
 
-                var time = 100
-                var limit = time*50
-                var current = 0
-                var SI = setInterval(()=>{
-                    var pk = select.attr("pk")
-                    if(pk!=undefined){
-                        select.val(pk).trigger("change.select2")
-                        clearInterval(SI)
-                        return
-                    }
-                    if(current>=limit){
-                        clearInterval(SI)
-                        return
-                    }
-                    current+=time
-                },time)
+                ___setSelect2Value(select)
             }
         },
         error: (jqXHR, textStatus, errorThrown) => {
@@ -62,6 +48,7 @@ function setSelect2Ajax(p={}){
         placeholder: placeholder,
     })
 
+    ajax.data = { id: selected }
     $.ajax(ajax)
 }
 
@@ -79,5 +66,29 @@ function setSelect2(select,p={}){
         $(".select2-search__field").addClass("focus:border-emerald-300-important focus:ring focus:ring-emerald-100")
     })
 
+    if(!p.ajax) select.val(select.attr("pk"))
+
     return select.select2(params)
+}
+
+function ___setSelect2Value(select){
+    console.log("asdasdasdas")
+    var time = 100
+    var limit = time*50
+    var current = 0
+    var SI = setInterval(()=>{
+        var pk = select.attr("pk")
+        if(pk!=undefined){
+            // select.val(pk)
+            // select.val(pk).trigger("change")
+            select.val(pk).trigger("change.select2")
+            clearInterval(SI)
+            return
+        }
+        if(current>=limit){
+            clearInterval(SI)
+            return
+        }
+        current+=time
+    },time)
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class LecturerController extends Controller
 {
@@ -18,5 +19,13 @@ class LecturerController extends Controller
         AuthRevoke();
         $bearerToken = AuthCreateToken("lecturer-create",["user-store"]);
         return view('master.lecturer.form', compact("bearerToken"));
+    }
+
+    public function edit(Request $r, $id){
+        AuthRevoke();
+        $data = User::findOrFail($id);
+        $data->birth_date = date("Y-m-d",strtotime($data->birth_date));
+        $bearerToken = AuthCreateToken("lecturer-create",["user-update"]);
+        return view('master.lecturer.form', compact("bearerToken","data"));
     }
 }

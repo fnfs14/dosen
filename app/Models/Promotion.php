@@ -15,16 +15,21 @@ class Promotion extends Model
     protected $table = 'promotion';
     protected $guarded = ['id'];
 
-    public static function dt($user,$search,$start,$limit,$order,$dir){
+    public static function dt($search,$start,$limit,$order,$dir){
         $data = Promotion::select("promotion.id","promotion.user","promotion.file","promotion.time","promotion.status","promotion.created_at","position.name as position")
-            ->join("position","position.id","=","promotion.position")
-            ->where("promotion.user",$user);
-        $data = $search==""
+            ->join("position","position.id","=","promotion.position");
+
+        $data = $search->user==null ? $data : $data->where("promotion.user",$search->user);
+
+        $data = $search->status==null ? $data : $data->where("promotion.status",$search->status);
+
+        $data = $search->value==null
             ? $data
-            : $data->where("promotion.file","LIKE","%".$search."%")
-                ->orWhere("promotion.time","LIKE","%".$search."%")
-                ->orWhere("promotion.status","LIKE","%".$search."%")
-                ->orWhere("position.name","LIKE","%".$search."%");
+            : $data->where("promotion.file","LIKE","%".$search->value."%")
+                ->orWhere("promotion.time","LIKE","%".$search->value."%")
+                ->orWhere("promotion.status","LIKE","%".$search->value."%")
+                ->orWhere("position.name","LIKE","%".$search->value."%");
+
         return $data
             ->limit($limit)
             ->offset($start)
@@ -32,23 +37,27 @@ class Promotion extends Model
             ->get();
     }
 
-    public static function dtTotal($user,$search){
-        $total = Promotion::select(DB::raw("count(promotion.id) as count"))
-            ->where("promotion.user",$user)
-            ->first()
-            ->count;
+    public static function dtTotal($search){
+        $total = Promotion::select(DB::raw("count(promotion.id) as count"));
+        $total = $search->user==null ? $total : $total->where("promotion.user",$search->user);
+        $total = $search->status==null ? $total : $total->where("promotion.status",$search->status);
+        $total = $total->first()->count;
+
         $filtered = $total;
-        if($search!=""){
+        if($search->value!=null){
             $filtered = Promotion::select(DB::raw("count(promotion.id) as count"))
-                ->join("position","position.id","=","promotion.position")
-                ->where("promotion.user",$user)
-                ->where("promotion.file","LIKE","%".$search."%")
-                ->orWhere("promotion.time","LIKE","%".$search."%")
-                ->orWhere("promotion.status","LIKE","%".$search."%")
-                ->orWhere("position.name","LIKE","%".$search."%")
+                ->join("position","position.id","=","promotion.position");
+            $filtered = $search->user==null ? $filtered : $filtered->where("promotion.user",$search->user);
+            $filtered = $search->status==null ? $filtered : $filtered->where("promotion.status",$search->status);
+            $filtered = $filtered->where("promotion.user",$search->user)
+                ->where("promotion.file","LIKE","%".$search->value."%")
+                ->orWhere("promotion.time","LIKE","%".$search->value."%")
+                ->orWhere("promotion.status","LIKE","%".$search->value."%")
+                ->orWhere("position.name","LIKE","%".$search->value."%")
                 ->first()
                 ->count;
         }
+
         return (object)[
             "total" => $total,
             "filtered" => $filtered,
@@ -103,7 +112,7 @@ class Promotion extends Model
 
     public static function Process($data){
         $Promotion = Promotion::find($data['id']);
-        $Promotion->status = "Diproses";
+        $Promotion->status = "Diajukan";
         return $Promotion->update();
     }
 
@@ -116,10 +125,7 @@ class Promotion extends Model
     public static function Approve($data){
         $Promotion = Promotion::find($data['id']);
         $Promotion->status = "Disetujui";
-        $ok = $Promotion->update();
-
-        if(!$ok) return false;
-        return true;
+        return $Promotion->update();
     }
 
     public static function GetSuccess(){
@@ -130,7 +136,18 @@ class Promotion extends Model
         return Promotion::where("status","Disetujui")->orderBy("id","desc")->first();
     }
 
-    public static function GetLast(){
-        return Promotion::orderBy("id","desc")->first();
+    public static function GetLast($id=null){
+        $data = Promotion::orderBy("id","desc");
+        $data = $id==null ? $data : $data->where("user",$id);
+        return $data->first();
+    }
+
+    public static function GetAmountStatus(){
+        return (object)[
+            "draf" => Promotion::where("status","Draf")->count(),
+            "diajukan" => Promotion::where("status","Diajukan")->count(),
+            "ditolak" => Promotion::where("status","Ditolak")->count(),
+            "disetujui" => Promotion::where("status","Disetujui")->count(),
+        ];
     }
 }

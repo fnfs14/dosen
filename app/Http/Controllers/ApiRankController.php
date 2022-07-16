@@ -9,7 +9,7 @@ use App\Models\Level;
 class ApiRankController extends Controller
 {
     public function dt(Request $r) {
-        $columns = [ "no", "name", ];
+        $columns = [ "no", "rank.name", "position.name", "rank.id", ];
 
         $limit = $r->length;
         $start = $r->start;
@@ -70,7 +70,7 @@ class ApiRankController extends Controller
 
     public function select2(Request $r){
         return response()->json(
-            Rank::select2($r->search)
+            Rank::select2($r->search,$r->id)
         );
     }
 
